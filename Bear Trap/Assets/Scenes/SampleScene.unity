@@ -331,7 +331,9 @@ MonoBehaviour:
   Width: 6
   Length: 6
   TilePrefab: {fileID: 3894915629328147226, guid: e57b8b73b4156584a81e5f211286abfb, type: 3}
-  Board: []
+  PlayerSpawns:
+  - {x: 0, y: 0}
+  - {x: 6, y: 6}
 --- !u!4 &1336460887
 Transform:
   m_ObjectHideFlags: 0

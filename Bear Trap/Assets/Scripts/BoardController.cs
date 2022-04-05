@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using UnityEditor;
 using UnityEngine;
 
 public class BoardController : MonoBehaviour
@@ -10,8 +12,9 @@ public class BoardController : MonoBehaviour
     public int Length;
     public GameObject TilePrefab;
 
+    public List<Vector2> PlayerSpawns;
 
-    public List<TileController> Board = new List<TileController>();
+    private List<TileController> Board = new List<TileController>();
 
     // Start is called before the first frame update
     void Start()
@@ -27,12 +30,18 @@ public class BoardController : MonoBehaviour
 
     private void CreateTiles()
     {
-        for (int x = 0; x < Width; x++)
+        //Not doing 0 baised
+        for (int xPos = 1; xPos < Width + 1; xPos++)
         {
-            for (int y = 0; y < Length; y++)
+            for (int yPos = 1; yPos < Length + 1; yPos++)
             {
-                Vector3 pos = new Vector3(x, 0, y);
-                Instantiate(TilePrefab, pos, new Quaternion());
+                //Zeroing the position
+                Vector3 pos = new Vector3(xPos - 1, 0, yPos -1);
+                var tmpObj = Instantiate(TilePrefab, pos, new Quaternion());
+                TileController tileController = tmpObj.GetComponent<TileController>();
+                // Adding one to this as -1 is not found
+                int SpawnId = PlayerSpawns.FindIndex(s => s.x == xPos && s.y == yPos) + 1;
+                tileController.SetTileDetails(xPos, yPos, SpawnId);
             }
         }
     }
@@ -40,4 +49,9 @@ public class BoardController : MonoBehaviour
     {
         throw new NotImplementedException();
     }
+}
+public class PlayerSpawn
+{
+    public int X;
+    public int Y;
 }

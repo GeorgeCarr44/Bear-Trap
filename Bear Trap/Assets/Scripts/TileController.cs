@@ -7,6 +7,7 @@ public class TileController : MonoBehaviour
     public int XPosition;
     public int YPosition;
     public TileState State;
+    public int PlayerSpawnID;
 
     /// <summary>
     /// Tile Constructor
@@ -14,18 +15,25 @@ public class TileController : MonoBehaviour
     /// <param name="x">The X position</param>
     /// <param name="y">The Y position</param>
     /// <param name="state">The state of the tile defaults to Empty</param>
-    public TileController(int x, int y, TileState state = TileState.Empty)
+    public void SetTileDetails(int x, int y, int spawnID)
     {
         XPosition = x;
         YPosition = y;
-        State = state;
+        State = TileState.Empty;
+        PlayerSpawnID = spawnID;
     }
 
     public enum TileState
     {
         Empty,
-        Trap,
-        Player1,
-        Player2
+        Trap
+    }
+
+    public void Start()
+    {
+        if(PlayerSpawnID > 0)
+        {
+            //Spawn player
+        }
     }
 }
